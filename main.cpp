@@ -6,7 +6,7 @@
 int main() {
     Graph g;
     std::list<int>* adj_list;
-    int n, m, start;
+    int n, m, start, MNP;
 
     std::cout << "Introduce the number of nodes: ";
     std::cin >> n;
@@ -18,8 +18,11 @@ int main() {
     std::cout << "Introduce the start node: ";
     std::cin >> start;
 
+    std::cout << "Introduce the MNP: ";
+    std::cin >> MNP;
+
     std::cout << "BFS: ";
-    g.BFS(start, adj_list);
+    g.BFS(start, MNP, adj_list);
 
     return 0;
 }

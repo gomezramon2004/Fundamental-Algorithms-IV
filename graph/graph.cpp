@@ -6,6 +6,9 @@ void Graph::addEdge(int u, int v, std::list<int>* &adj_list) {
     adj_list[v].push_back(u);
 }
 
+// Check if the node is false
+bool isFalse(int i) { return i == true; }
+
 // Constructor of graph
 void Graph::loadGraph(int n, int m, std::list<int>* &adj_list) {
     int u, v;
@@ -19,7 +22,7 @@ void Graph::loadGraph(int n, int m, std::list<int>* &adj_list) {
 }
 
 // Breadth First Search
-void Graph::BFS(int currentNode, std::list<int>* &adj_list) {
+void Graph::BFS(int currentNode, int MNP, std::list<int>* &adj_list) {
     std::vector<bool> visited(adj_list->size(), false);
     std::queue<int> q;
 
@@ -27,7 +30,7 @@ void Graph::BFS(int currentNode, std::list<int>* &adj_list) {
     q.push(currentNode);
     std::list<int>::iterator i;
 
-    while (!q.empty()) {
+    while (!q.empty() && MNP > 0) {
         currentNode = q.front();
         std::cout << currentNode << " ";
         q.pop();
@@ -38,7 +41,7 @@ void Graph::BFS(int currentNode, std::list<int>* &adj_list) {
                 q.push(*i);
             }
         }
+        
     }
-
-    std::cout << std::endl;
 }
+
