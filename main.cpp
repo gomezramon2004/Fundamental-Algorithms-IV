@@ -5,7 +5,6 @@
 
 int main() {
     Graph g;
-    std::vector<std::vector<bool>> adj_matrix;
     std::list<int>* adj_list;
     int n, m, start;
 
@@ -14,13 +13,10 @@ int main() {
     std::cout << "Introduce the number of edges: ";
     std::cin >> m;
 
-    g.loadGraph(n, m, adj_matrix, adj_list);
+    g.loadGraph(n, m, adj_list);
 
     std::cout << "Introduce the start node: ";
     std::cin >> start;
-
-    std::cout << "DFS: ";
-    g.DFS(start, adj_matrix);
 
     std::cout << "BFS: ";
     g.BFS(start, adj_list);
