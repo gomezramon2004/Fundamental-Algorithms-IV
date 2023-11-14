@@ -4,18 +4,24 @@
 // Then, it will be used the DFS and BFS algorithms to traverse the graph, starting from a node introduced by the input stream.
 
 int main() {
-    Graph g;
+
+    Graph g(13, 16, "adj_list.txt");
+
+
+    // Graph g;
     std::list<int>* adj_list;
-    int n, m, start, MNP;
+    int n, m = 16, start, MNP;
 
-    std::cout << g.ports[9] << std::endl;
+    g.printAdjacencyList();
 
-    std::cout << "Introduce the number of nodes: ";
-    std::cin >> n;
-    std::cout << "Introduce the number of edges: ";
-    std::cin >> m;
+    // std::cout << g.ports[9] << std::endl;
 
-    g.loadGraph(n, m, adj_list);
+    // std::cout << "Introduce the number of nodes: ";
+    // std::cin >> n;
+    // std::cout << "Introduce the number of edges: ";
+    // std::cin >> m;
+
+    // g.loadGraph(n, m, adj_list);
 
     std::cout << "Introduce the start node: ";
     std::cin >> start;
@@ -27,7 +33,7 @@ int main() {
     g.BFS(start, MNP, adj_list);
 
     std::cout << std::endl;
-    g.printAdjacencyList();
+    
 
     return 0;
 }

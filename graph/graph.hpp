@@ -17,7 +17,7 @@ class Graph {
         bool IsFalse(int i);
     public:
         Graph();
-        Graph(int n, std::string filename);
+        Graph(int n, int m, std::string filename);
         ~Graph();
 
         std::string ports[13] = {"Alexandria", "Algeciras", "Ambarli", "Antwerp", "Balboa", "Bandar", "Barcelona", "Bremen", "Busan", "Cai_Mep", "Callao", "Cartagena", "Charleston"};
@@ -25,7 +25,7 @@ class Graph {
         void loadGraph(int n, int m, std::list<int>* &adj_list);
         void BFS(int start, int MNP, std::list<int>* &adj_list);
         void insertAdjacency(int node, int adjacency);
-        std::list<int>* getAdjacencyList(std::string filename);
+        std::list<int>* getAdjacencyList(int m, std::string filename);
         void printAdjacencyList();
         void printNodes(); //debug purposes
 };

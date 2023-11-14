@@ -5,9 +5,9 @@ Graph::Graph() {
     this->adj_list = new std::list<int>[0];
 }
 
-Graph::Graph(int n, std::string filename) {
+Graph::Graph(int n, int m, std::string filename) {
     this->nodes = std::vector<int>(n, 0);
-    // this->adj_list = getAdjacencyList(filename);
+    this->adj_list = getAdjacencyList(m, filename); //puedo implemantar el usar load graph en este constructor
 }
 
 // Add an edge to the graph. Remember, this is a non-directed graph, so U <-> V
@@ -40,7 +40,7 @@ void Graph::loadGraph(int n, int m, std::list<int>* &adj_list) {
         }
     }
 
-    this->adj_list = adj_list; //quieres esto ramon???
+    this->adj_list = adj_list; 
 
 }
 
@@ -48,9 +48,9 @@ void Graph::insertAdjacency(int node, int adjacency) {
     adj_list[node].push_back(adjacency); 
 }
 
-void Graph::printAdjacencyList() {
-    for (int i = 0; i <= nodes.size()-1; i++) {
-        std::cout << i << " -> ";
+void Graph::printAdjacencyList() { ///formatear para que se entienda mejor, imprime cada una de las adjs enumeradas
+    for (int i = 0; i < 16; i++) {  
+        std::cout << i + 1 << " -> ";
         for (auto it = adj_list[i].begin(); it != adj_list[i].end(); ++it) {
             std::cout << *it << " ";
         }
@@ -66,15 +66,34 @@ void Graph::printNodes() {
     std::cout << std::endl;
 }
 
-// std::list<int>* Graph::getAdjacencyList(std::string filename) {
-    
 
+std::list<int>* Graph::getAdjacencyList(int m, std::string txtfile) {
+    std::ifstream file;
+    file.open(txtfile);
+    if (!file.is_open()) {
+        std::cout << "Error opening file" << std::endl;
+        return nullptr;
+    }
 
-// }
+    std::list<int>* file_list = new std::list<int>[m]; 
+
+    std::string line;
+    int i = 0;
+    while (getline(file, line)) {
+        std::stringstream ss(line);
+        std::string token;
+        while (getline(ss, token, ' ')) {
+            file_list[i].push_back(stoi(token));
+        }
+        ++i;
+    }
+
+    return file_list; 
+}
 
 // Breadth First Search
-void Graph::BFS(int currentNode, int MNP, std::list<int>* &adj_list) {
-    std::vector<bool> visited(adj_list->size(), false);
+void Graph::BFS(int currentNode, int MNP, std::list<int>* &adj_list) { ///hacer el cambio por uso de el atributo adj_list
+    std::vector<bool> visited(this->adj_list->size(), false);
     std::queue<int> q;
     int portAccessed = currentNode;
     int count = 0;
@@ -83,12 +102,14 @@ void Graph::BFS(int currentNode, int MNP, std::list<int>* &adj_list) {
     q.push(currentNode);
     std::list<int>::iterator i;
 
+    std::list<int> unreachableNodes;
+
     while (!q.empty() && MNP >= 0) {
         currentNode = q.front();
         std::cout << currentNode << " ";
         q.pop();
 
-        for (i = adj_list[currentNode].begin(); i != adj_list[currentNode].end(); ++i) {
+        for (i = this->adj_list[currentNode].begin(); i != this->adj_list[currentNode].end(); ++i) {
             if (!visited[*i]) {
                 visited[*i] = true;
                 q.push(*i);
@@ -96,13 +117,15 @@ void Graph::BFS(int currentNode, int MNP, std::list<int>* &adj_list) {
         }
     }
 
-    for (size_t i = 0; i < visited.size(); ++i) {
-        if (visited[i] == false) {
+    for (size_t i = 0; i < this->adj_list->size(); ++i) {
+        if (!visited[i]) {
             count++;
+            unreachableNodes.push_back(i);
         }
     }
 
-    std::cout << std::endl << count << "ports not reachable from port" << this->ports[portAccessed] << "with MNP: " << MNP << std::endl;
+
+    std::cout << std::endl << count << " ports not reachable from port " << this->ports[portAccessed] << " with MNP: " << MNP << std::endl;
 
 }
 
