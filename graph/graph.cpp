@@ -77,16 +77,12 @@ void Graph::loadFromFile(Graph& graph, const std::string& txtfile) {
     for (int i = 0; i < edges; ++i) {
         file >> vertex1 >> vertex2;
         try {
-        if (std::all_of(vertex1.begin(), vertex1.end(), ::isdigit) || std::all_of(vertex2.begin(), vertex2.end(), ::isdigit)) {
-            throw std::invalid_argument("Invalid data type for edge data");
-        }
-
-        // If both vertex1 and vertex2 are not numbers, add edges to the graph
-        graph.addEdge(vertex1, vertex2);
+            if (std::all_of(vertex1.begin(), vertex1.end(), ::isdigit) || std::all_of(vertex2.begin(), vertex2.end(), ::isdigit)) throw std::invalid_argument("Invalid data type for edge data");
+            // If both vertex1 and vertex2 are not numbers, add edges to the graph
+            graph.addEdge(vertex1, vertex2);
         }
         catch (const std::invalid_argument& e) {
             std::cout << e.what() << std::endl;
-            return;
         }
     }
 
@@ -108,10 +104,7 @@ void Graph::loadFromFile(Graph& graph, const std::string& txtfile) {
 
         file >> startVertex >> maxMoves;
         try {
-            if (std::all_of(startVertex.begin(), startVertex.end(), ::isdigit)) {
-            std::cout << "Invalid data type for starting vertex" << std::endl;
-            return;
-        }
+            if (std::all_of(startVertex.begin(), startVertex.end(), ::isdigit)) std::cout << "Invalid data type for starting vertex" << std::endl;
         }
         catch (const std::invalid_argument& e) {
             std::cout << e.what() << std::endl;
@@ -123,7 +116,6 @@ void Graph::loadFromFile(Graph& graph, const std::string& txtfile) {
         }
 
         int unreachable = graph.unreachableCount(startVertex, maxMoves);
-        std::cout << "Case " << i + 1 << ": " << unreachable << " ports not reachable from port " << startVertex
-                << " with MNP = " << maxMoves << "." << std::endl;
+        std::cout << "Case " << i + 1 << ": " << unreachable << " ports not reachable from port " << startVertex << " with MNP = " << maxMoves << "." << std::endl;
     }
 }
