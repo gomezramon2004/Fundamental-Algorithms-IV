@@ -5,7 +5,7 @@
 // - Ramón Gómez
 // - Andres Sandoval 
 // - Daniel Fernández
-#include "graph/graph.cpp"
+#include "graph/graph.hpp"
 
 
 int main() {
