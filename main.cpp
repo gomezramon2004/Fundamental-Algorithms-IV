@@ -1,28 +1,17 @@
-#include "./graph/graph.hpp"
+// Purpose: main file for testing the graph class
+//Act 4.3 - Actividad Integral de Grafos (Evidencia Competencia)
+//Equipo:
+// - Francisco Rochin
+// - Ramón Gómez
+// - Andres Sandoval 
+// - Daniel Fernández
+#include "graph/graph.cpp"
 
-// In this program it will be used a Graph object to load a graph using an adjacency matrix and list, based on the number of nodes and edges introduced by the input stream.
-// Then, it will be used the DFS and BFS algorithms to traverse the graph, starting from a node introduced by the input stream.
 
 int main() {
-    Graph g;
-    std::list<int>* adj_list;
-    int n, m, start, MNP;
+    Graph graph;
 
-    std::cout << "Introduce the number of nodes: ";
-    std::cin >> n;
-    std::cout << "Introduce the number of edges: ";
-    std::cin >> m;
-
-    g.loadGraph(n, m, adj_list);
-
-    std::cout << "Introduce the start node: ";
-    std::cin >> start;
-
-    std::cout << "Introduce the MNP: ";
-    std::cin >> MNP;
-
-    std::cout << "BFS: ";
-    g.BFS(start, MNP, adj_list);
+    graph.loadFromFile(graph, "case_file1.txt");
 
     return 0;
 }
